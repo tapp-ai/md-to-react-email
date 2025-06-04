@@ -4,7 +4,7 @@ import { Renderer } from "marked";
 import { styles } from "./styles";
 
 function escapeQuotes(value: unknown) {
-  if (typeof value === 'string' && value.includes('"')) {
+  if (typeof value === "string" && value.includes('"')) {
     return value.replace(/"/g, "&#x27;");
   }
   return value;
@@ -78,9 +78,7 @@ export function parseCssInJsToInlineCss(
     .join(";");
 }
 
-export const initRenderer = ({
-  customStyles,
-}: initRendererProps): Renderer => {
+export const initRenderer = ({ customStyles }: initRendererProps): Renderer => {
   const finalStyles = { ...styles, ...customStyles };
 
   const customRenderer = new Renderer();
@@ -91,7 +89,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.blockQuote)}"`
         : ""
     }>\n${quote}</blockquote>\n`;
-  }
+  };
 
   customRenderer.br = () => {
     return `<br${
@@ -99,7 +97,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.br)}"`
         : ""
     } />`;
-  }
+  };
 
   customRenderer.code = (code) => {
     code = code.replace(/\n$/, "") + "\n";
@@ -109,7 +107,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
         : ""
     }><code>${code}</code></pre>\n`;
-  }
+  };
 
   customRenderer.codespan = (text) => {
     return `<code${
@@ -117,7 +115,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
         : ""
     }>${text}</code>`;
-  }
+  };
 
   customRenderer.del = (text) => {
     return `<del${
@@ -125,7 +123,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.strikethrough)}"`
         : ""
     }>${text}</del>`;
-  }
+  };
 
   customRenderer.em = (text) => {
     return `<em${
@@ -133,19 +131,18 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.italic)}"`
         : ""
     }>${text}</em>`;
-  }
+  };
 
   customRenderer.heading = (text, level) => {
     return `<h${level}${
-      parseCssInJsToInlineCss(
-        finalStyles[`h${level}` as keyof StylesType]
-      ) !== ""
+      parseCssInJsToInlineCss(finalStyles[`h${level}` as keyof StylesType]) !==
+      ""
         ? ` style="${parseCssInJsToInlineCss(
             finalStyles[`h${level}` as keyof StylesType]
           )}"`
         : ""
     }>${text}</h${level}>`;
-  }
+  };
 
   customRenderer.hr = () => {
     return `<hr${
@@ -153,7 +150,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.hr)}"`
         : ""
     } />\n`;
-  }
+  };
 
   customRenderer.image = (href, _, text) => {
     return `<img src="${href}" alt="${text}"${
@@ -161,33 +158,31 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
         : ""
     }>`;
-  }
+  };
 
   customRenderer.link = (href, _, text) => {
     return `<a href="${href}" target="_blank"${
-        parseCssInJsToInlineCss(finalStyles.link) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
-          : ""
-      }>${text}</a>`;
-  }
+      parseCssInJsToInlineCss(finalStyles.link) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
+        : ""
+    }>${text}</a>`;
+  };
 
   customRenderer.list = (body, ordered, start) => {
     const type = ordered ? "ol" : "ul";
-      const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
-      const styles = parseCssInJsToInlineCss(
-        finalStyles[ordered ? "ol" : "ul"]
-      );
-      return (
-        "<" +
-        type +
-        startatt +
-        `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
-        body +
-        "</" +
-        type +
-        ">\n"
-      );
-  }
+    const startatt = ordered && start !== 1 ? ' start="' + start + '"' : "";
+    const styles = parseCssInJsToInlineCss(finalStyles[ordered ? "ol" : "ul"]);
+    return (
+      "<" +
+      type +
+      startatt +
+      `${styles !== "" ? ` style="${styles}"` : ""}>\n` +
+      body +
+      "</" +
+      type +
+      ">\n"
+    );
+  };
 
   customRenderer.listitem = (text) => {
     return `<li${
@@ -195,7 +190,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.li)}"`
         : ""
     }>${text}</li>\n`;
-  }
+  };
 
   customRenderer.paragraph = (text) => {
     return `<p${
@@ -203,7 +198,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.p)}"`
         : ""
     }>${text}</p>\n`;
-  }
+  };
 
   customRenderer.strong = (text) => {
     return `<strong${
@@ -211,37 +206,37 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.bold)}"`
         : ""
     }>${text}</strong>`;
-  }
+  };
 
   customRenderer.table = (header, body) => {
     if (body) body = `<tbody>${body}</tbody>`;
 
-      return `<table${
-        parseCssInJsToInlineCss(finalStyles.table) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.table)}"`
-          : ""
-      }>\n<thead${
-        parseCssInJsToInlineCss(finalStyles.thead) !== ""
-          ? ` style="${parseCssInJsToInlineCss(finalStyles.thead)}"`
-          : ""
-      }>\n${header}</thead>\n${body}</table>\n`;
-  }
+    return `<table${
+      parseCssInJsToInlineCss(finalStyles.table) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.table)}"`
+        : ""
+    }>\n<thead${
+      parseCssInJsToInlineCss(finalStyles.thead) !== ""
+        ? ` style="${parseCssInJsToInlineCss(finalStyles.thead)}"`
+        : ""
+    }>\n${header}</thead>\n${body}</table>\n`;
+  };
 
   customRenderer.tablecell = (content, flags) => {
     const type = flags.header ? "th" : "td";
-      const tag = flags.align
-        ? `<${type} align="${flags.align}"${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`
-        : `<${type}${
-            parseCssInJsToInlineCss(finalStyles.td) !== ""
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ""
-          }>`;
-      return tag + content + `</${type}>\n`;
-  }
+    const tag = flags.align
+      ? `<${type} align="${flags.align}"${
+          parseCssInJsToInlineCss(finalStyles.td) !== ""
+            ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
+            : ""
+        }>`
+      : `<${type}${
+          parseCssInJsToInlineCss(finalStyles.td) !== ""
+            ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
+            : ""
+        }>`;
+    return tag + content + `</${type}>\n`;
+  };
 
   customRenderer.tablerow = (content) => {
     return `<tr${
@@ -249,7 +244,7 @@ export const initRenderer = ({
         ? ` style="${parseCssInJsToInlineCss(finalStyles.tr)}"`
         : ""
     }>\n${content}</tr>\n`;
-  }
+  };
 
   return customRenderer;
 };

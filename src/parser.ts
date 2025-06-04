@@ -1,4 +1,4 @@
-import { marked, Renderer } from "marked";
+import { marked, MarkedExtension, Renderer } from "marked";
 import { StylesType } from "./types";
 import { initRenderer } from "./utils";
 
@@ -9,7 +9,8 @@ export class MarkdownParser {
     this.renderer = initRenderer({ customStyles });
   }
 
-  parse(markdown: string) {
+  parse(markdown: string, extensions: MarkedExtension[] = []) {
+    marked.use(...extensions);
     return marked.parse(markdown, { renderer: this.renderer });
   }
 }
