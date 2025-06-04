@@ -1,6 +1,6 @@
 {
   "name": "@conversion-ai/md-to-react-email",
-  "version": "5.0.5-revision.1",
+  "version": "5.0.5-revision.2",
   "description": "A simple Markdown to jsx parser for email templates written in typescript.",
   "keywords": [
     "markdown",
