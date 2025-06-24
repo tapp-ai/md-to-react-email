@@ -1,4 +1,3 @@
-import { MarkedExtension } from "marked";
 import { CSSProperties } from "react";
 
 export type StylesType = {
@@ -37,5 +36,4 @@ export type initRendererProps = {
 export type parseMarkdownToJSXProps = {
   markdown: string;
   customStyles?: StylesType;
-  extensions?: MarkedExtension[];
 };
