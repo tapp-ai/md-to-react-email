@@ -1,9 +1,9 @@
-import { marked, MarkedExtension, Renderer } from "marked";
+import { marked, MarkedExtension, RendererObject } from "marked";
 import { StylesType } from "./types";
 import { initRenderer } from "./utils";
 
 export class MarkdownParser {
-  private readonly renderer: Renderer;
+  private readonly renderer: RendererObject;
 
   constructor({ customStyles }: { customStyles?: StylesType }) {
     this.renderer = initRenderer({ customStyles });
@@ -11,6 +11,7 @@ export class MarkdownParser {
 
   parse(markdown: string, extensions: MarkedExtension[] = []) {
     marked.use(...extensions);
-    return marked.parse(markdown, { renderer: this.renderer });
+    marked.use({ renderer: this.renderer });
+    return marked.parse(markdown);
   }
 }

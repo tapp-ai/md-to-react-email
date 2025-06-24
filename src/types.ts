@@ -1,4 +1,4 @@
-import { MarkedExtension } from "MarkedOptions";
+import { MarkedExtension } from "marked";
 import { CSSProperties } from "react";
 
 export type StylesType = {
